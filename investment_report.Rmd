@@ -1,14 +1,16 @@
 ---
 title: "Investment Report for Projects in `r params$country`"
-output: 
+output:
+  pdf_document:
+    toc: yes
   html_document:
-    toc: true
-    toc_float: true
+    toc: yes
+    toc_float: yes
 date: "`r format(Sys.time(), '%d %B %Y')`"
 params:
   country: Brazil
-  year_start: 2017-07-01
-  year_end: 2018-06-30
+  year_start: '2017-07-01'
+  year_end: '2018-06-30'
   fy: 2018
 ---
 
