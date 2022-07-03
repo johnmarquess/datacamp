@@ -1,11 +1,11 @@
 ---
 title: "Investment Report for Projects in `r params$country`"
 output:
-  pdf_document:
-    toc: yes
   html_document:
     toc: yes
     toc_float: yes
+  pdf_document:
+    toc: yes
 date: "`r format(Sys.time(), '%d %B %Y')`"
 params:
   country: Brazil
