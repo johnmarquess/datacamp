@@ -31,16 +31,19 @@ glimpse(racf)
 
 
 
+vax_sample <- sample_n(all_ages_vax, 100000)
+racf_sample <- sample_n(racf, 100000)
 
+vax_sample <- vax_sample %>% mutate(key = paste0(firstName, surname))
+racf_sample <- racf_sample %>% mutate(key = paste0(firstName, surname))
 
-
-
-glimpse(all_ages_vax)
-glimpse(racf)
-
-
-linked_data <- pair_blocking(racf, all_ages_vax, blocking_var = c("state", "postcode")) %>% 
-  compare_pairs(by = c("firstName", "surname", "dob"), default_comparator = jaro_winkler(0.9)) %>% 
-  score_problink(var = "weight") %>% 
-  select_n_to_m(threshold = 0.9) %>% 
+racf_sample[20,]
+vax_sample[22566,]
+linked_data <- pair_blocking(racf_sample, vax_sample, blocking_var = c("key")) %>% 
+  compare_pairs(by = c("sex", "postcode"), default_comparator = jaro_winkler(0.9)) %>% 
+  score_problink() %>% 
+  select_n_to_m("weight", var = "ntom", threshold = 0) %>% 
   link()
+
+
+linked_data %>% as_tibble() %>% View()
